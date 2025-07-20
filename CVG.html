@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>منوی کافه لوپ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+      body {
+        font-family: 'Vazirmatn', sans-serif;
+      }
+      .tab-btn::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        right: 15%;
+        left: 15%;
+        height: 3px;
+        background-color: transparent;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+      }
+      .active-tab::after {
+        background-color: #2F4156;
+      }
+    </style>
+  </head>
+  <body class="bg-[#F5EFE8] text-[#2F4156] scroll-smooth">
+
+    <!-- Header -->
+    <header class="text-center py-6 bg-white shadow-sm sticky top-0 z-30 backdrop-blur">
+      <h1 class="text-3xl font-bold">کافه لوپ</h1>
+      <p class="text-sm text-[#567C8D]">منوی دیجیتال چندلایه</p>
+    </header>
+
+    <!-- Sticky Tabs -->
+    <div class="sticky top-[72px] z-20 bg-[#F5EFE8]/80 backdrop-blur-lg py-3 border-b border-[#C8D9E6]">
+      <div id="tabs" class="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto px-4">
+        <button data-target="brew" class="tab-btn relative px-4 py-2 rounded-full bg-white text-[#2F4156] hover:bg-[#2F4156]/10">قهوه‌های دمی</button>
+        <button data-target="espresso" class="tab-btn relative px-4 py-2 rounded-full bg-white text-[#2F4156] hover:bg-[#2F4156]/10">اسپرسو بار</button>
+        <button data-target="cold" class="tab-btn relative px-4 py-2 rounded-full bg-white text-[#2F4156] hover:bg-[#2F4156]/10">نوشیدنی سرد</button>
+        <button data-target="snack" class="tab-btn relative px-4 py-2 rounded-full bg-white text-[#2F4156] hover:bg-[#2F4156]/10">صبحانه و اسنک</button>
+        <button data-target="dessert" class="tab-btn relative px-4 py-2 rounded-full bg-white text-[#2F4156] hover:bg-[#2F4156]/10">کیک و شیرینی</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <main class="max-w-5xl mx-auto py-8 px-4 space-y-14">
+      <!-- Section Template -->
+      <section id="brew">
+        <h2 class="text-xl font-bold mb-4">قهوه‌های دمی</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="menu-card" data-title="V60" data-price="۹۵" data-desc="قهوه دمی با روش V60" data-img="v60"></div>
+          <div class="menu-card" data-title="Chemex" data-price="۱۱۰" data-desc="قهوه با عصاره‌گیری ملایم" data-img="chemex"></div>
+          <div class="menu-card" data-title="French Press" data-price="۸۵" data-desc="عصاره‌گیری قوی با فرنچ پرس" data-img="frenchpress"></div>
+        </div>
+      </section>
+
+      <section id="espresso">
+        <h2 class="text-xl font-bold mb-4">اسپرسو بار</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="menu-card" data-title="Espresso" data-price="۶۰" data-desc="شات خالص اسپرسو" data-img="espresso"></div>
+          <div class="menu-card" data-title="Latte" data-price="۹۵" data-desc="شیر بخار داده و اسپرسو" data-img="latte"></div>
+          <div class="menu-card" data-title="Flat White" data-price="۹۵" data-desc="نرم و قوی" data-img="flatwhite"></div>
+        </div>
+      </section>
+
+      <section id="cold">
+        <h2 class="text-xl font-bold mb-4">نوشیدنی سرد</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="menu-card" data-title="Cold Brew" data-price="۹۵" data-desc="قهوه سرد با عصاره‌گیری طولانی" data-img="coldbrew"></div>
+          <div class="menu-card" data-title="Iced Latte" data-price="۹۵" data-desc="لاته خنک با یخ" data-img="icedlatte"></div>
+        </div>
+      </section>
+
+      <section id="snack">
+        <h2 class="text-xl font-bold mb-4">صبحانه و اسنک</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="menu-card" data-title="Avocado Toast" data-price="۱۱۰" data-desc="تست نان با آووکادو تازه" data-img="avocado toast"></div>
+          <div class="menu-card" data-title="Croissant" data-price="۷۵" data-desc="کروسان کلاسیک" data-img="croissant"></div>
+        </div>
+      </section>
+
+      <section id="dessert">
+        <h2 class="text-xl font-bold mb-4">کیک و شیرینی</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="menu-card" data-title="Cheesecake" data-price="۹۵" data-desc="چیزکیک خامه‌ای با بیس بیسکوییتی" data-img="cheesecake"></div>
+          <div class="menu-card" data-title="Chocolate Tart" data-price="۹۰" data-desc="تارت شکلات تلخ" data-img="chocolate tart"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-[#567C8D] py-8 mt-8 border-t border-[#C8D9E6]">
+      آدرس: رشت، بلوار گیلان — اینستاگرام: @loup.cafe
+    </footer>
+
+    <!-- Script -->
+    <script>
+      // ساخت کارت‌ها
+      document.querySelectorAll('.menu-card').forEach(el => {
+        const { title, price, desc, img } = el.dataset;
+        el.className = "bg-white rounded-2xl shadow hover:scale-[1.02] transition p-4 flex items-center gap-4";
+        el.innerHTML = `
+          <img src="https://source.unsplash.com/80x80/?${encodeURIComponent(img)}" class="rounded-xl w-20 h-20 object-cover" />
+          <div class="flex-1">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">${title}</span>
+              <span class="text-sm">${price}</span>
+            </div>
+            <p class="text-sm text-[#567C8D]">${desc}</p>
+          </div>
+        `;
+      });
+
+      // کلیک روی تب = اسکرول به بخش
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          document.getElementById(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // تغییر تب فعال حین اسکرول
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+              btn.classList.remove('active-tab');
+              if (btn.getAttribute('data-target') === entry.target.id) {
+                btn.classList.add('active-tab');
+              }
+            });
+          }
+        });
+      }, {
+        threshold: 0.4
+      });
+
+      document.querySelectorAll('main > section').forEach(section => observer.observe(section));
+    </script>
+  </body>
+</html>

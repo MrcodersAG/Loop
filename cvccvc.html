@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>بازی: اگه می‌تونی از لوپ خارج شو</title>
+<style>
+  body, html {
+    margin: 0; padding: 0; overflow: hidden;
+    background: #2F4156;
+    color: #F5EFE8;
+    font-family: Vazirmatn, sans-serif;
+    user-select: none;
+  }
+  #gameCanvas {
+    display: block;
+    margin: 0 auto;
+    background: #567C8D;
+    border-radius: 20px;
+    box-shadow: 0 0 30px #0008 inset;
+  }
+  #info {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 1.2rem;
+  }
+  #message {
+    margin-top: 18px;
+    font-size: 2rem;
+    font-weight: 700;
+    height: 48px;
+  }
+  #startBtn {
+    cursor: pointer;
+    padding: 10px 18px;
+    font-size: 1.1rem;
+    background: #F5EFE8;
+    color: #2F4156;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+  }
+  #startBtn:hover {
+    background: #c9ccce;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="480" height="480"></canvas>
+<div id="info">امتیاز: <span id="score">0</span> | سرعت: <span id="speedLevel">1</span></div>
+<div id="message">برای شروع کلید Enter را بزن</div>
+<button id="startBtn" style="display:none;">شروع بازی</button>
+
+<script>
+(() => {
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const scoreEl = document.getElementById('score');
+  const speedEl = document.getElementById('speedLevel');
+  const messageEl = document.getElementById('message');
+  const startBtn = document.getElementById('startBtn');
+
+  const center = { x: canvas.width/2, y: canvas.height/2 };
+  const baseRadius = 150;
+
+  let animationId = null;
+  let running = false;
+  let score = 0;
+  let speedLevel = 1;
+
+  // توپ (player)
+  const ball = {
+    angle: 0,
+    radiusFromCenter: baseRadius,
+    size: 14,
+    speed: 0.015, // radians per frame
+    color: '#F5EFE8',
+  };
+
+  // شکاف خروج روی دایره حلقه (زاویه به رادیان)
+  // هر مرحله شکاف کوچکتر و سرعت توپ بیشتر می شود
+  function createExitGap() {
+    // اندازه شکاف بین 20 تا 50 درجه (رادیان)
+    const gapSize = Math.max(0.2, 0.6 - 0.05 * score);
+    // زاویه شروع شکاف بین 0 تا 2π (راندوم)
+    const gapStart = Math.random() * 2 * Math.PI;
+    return { start: gapStart, end: gapStart + gapSize };
+  }
+
+  let exitGap = createExitGap();
+
+  // وضعیت بازی
+  function resetGame() {
+    score = 0;
+    speedLevel = 1;
+    ball.angle = 0;
+    ball.speed = 0.015;
+    exitGap = createExitGap();
+    running = true;
+    messageEl.textContent = '';
+    startBtn.style.display = 'none';
+    scoreEl.textContent = score;
+    speedEl.textContent = speedLevel;
+  }
+
+  // رسم حلقه اصلی و شکاف خروج
+  function drawLoop() {
+    // حلقه بیرونی
+    ctx.lineWidth = 20;
+    ctx.strokeStyle = '#F5EFE8';
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, baseRadius, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    // حلقه با شکاف (با رنگ تیره‌تر)
+    ctx.lineWidth = 20;
+    ctx.strokeStyle = '#2F4156';
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, baseRadius, exitGap.start, exitGap.end);
+    ctx.stroke();
+  }
+
+  // رسم توپ روی حلقه
+  function drawBall() {
+    const x = center.x + ball.radiusFromCenter * Math.cos(ball.angle);
+    const y = center.y + ball.radiusFromCenter * Math.sin(ball.angle);
+    ctx.beginPath();
+    ctx.fillStyle = ball.color;
+    ctx.shadowColor = '#F5EFE8';
+    ctx.shadowBlur = 10;
+    ctx.arc(x, y, ball.size, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  // چک کردن اگر توپ تو محدوده شکاف هست یا نه
+  function isInExitGap(angle) {
+    let a = angle % (2 * Math.PI);
+    let start = exitGap.start % (2 * Math.PI);
+    let end = exitGap.end % (2 * Math.PI);
+
+    if (start < end) {
+      return a >= start && a <= end;
+    } else {
+      // اگر شکاف از 0 رد شده باشه
+      return a >= start || a <= end;
+    }
+  }
+
+  // نمایش پیام شکست
+  function gameOver() {
+    running = false;
+    messageEl.textContent = 'شکست! دوباره تلاش کن. کلید Enter یا دکمه شروع';
+    startBtn.style.display = 'inline-block';
+  }
+
+  // نمایش پیام برد (خروج موفق)
+  function levelUp() {
+    score++;
+    speedLevel++;
+    ball.speed += 0.003; // افزایش سرعت توپ
+    exitGap = createExitGap();
+    messageEl.textContent = 'آفرین! مرحله بعد';
+    scoreEl.textContent = score;
+    speedEl.textContent = speedLevel;
+    setTimeout(() => { messageEl.textContent = ''; }, 1500);
+  }
+
+  // حلقه بازی (فریم رندر)
+  function gameLoop() {
+    if (!running) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawLoop();
+    drawBall();
+
+    ball.angle += ball.speed;
+
+    requestAnimationFrame(gameLoop);
+  }
+
+  // هندل کلیدها
+  window.addEventListener('keydown', e => {
+    if (e.code === 'Space' && running) {
+      // اگر توپ تو محدوده شکاف هست یعنی خروج موفق
+      if (isInExitGap(ball.angle)) {
+        levelUp();
+      } else {
+        gameOver();
+      }
+    }
+    else if (e.code === 'Enter' && !running) {
+      resetGame();
+      gameLoop();
+    }
+  });
+
+  // دکمه شروع بازی
+  startBtn.addEventListener('click', () => {
+    resetGame();
+    gameLoop();
+  });
+
+  // نمایش اولیه
+  messageEl.textContent = 'برای شروع کلید Enter را بزن';
+})();
+</script>
+
+</body>
+</html>

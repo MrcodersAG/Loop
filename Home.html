@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loop Café | لووپ کافه</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0A1F3C;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .loader {
+      background-color: #0A1F3C;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;      
+      text-align: center; 
+    }
+
+    .tagline.typewriter {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      color: #D8CAB8;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      border-right: .15em solid #D8CAB8;
+      animation: typing 3s steps(19), blink 0.6s step-end infinite;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 10ch }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .header {
+      background-color: #0A1F3C;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .logo2 {
+      height: 60px;
+    }
+
+    .category-bar {
+      display:flex;
+      direction: rtl;
+      overflow-x: auto;
+      padding: 10px;
+      background-color: #0D284F;
+      gap: 1rem;
+      margin-top: 110px;
+      scrollbar-width: 20px;
+    }
+
+    .category-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-card {
+      flex: 0 0 auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 10px;
+      text-align: center;
+      width: 90px;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .category-card:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .category-card img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      margin-bottom: 5px;
+      border-radius: 10px;
+    }
+
+    .category-card span {
+      font-size: 0.85rem;
+      color: #d8cab8;
+      font-weight: 600;
+    }
+
+    .item-list {
+      padding: 20px 15px;
+      margin-top: 20px;
+    }
+
+    .item-card {
+      direction: rtl;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      gap: 10px;
+      margin-bottom: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .item-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-info h3 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .item-info p {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .item-price {
+      color: #D8CAB8;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    @media (min-width: 768px) {
+      .logo2 {
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <img src="IMG/background-img2.png" width="200px" />
+  <div class="tagline typewriter">Stay In Loop</div>
+</div>
+
+<div id="main" style="display: none;">
+  <div class="header">
+    <img src="IMG/background-img2.png" alt="Logo" class="logo2">
+  </div>
+  <div class="category-bar">
+    <div class="category-card" data-target="hot">
+      <img src="IMG/coffee.png">
+      <span>بار گرم</span>
+    </div>
+    <div class="category-card" data-target="cold">
+      <img src="IMG/cup.png">
+      <span>نوشیدنی سرد</span>
+    </div>
+    <div class="category-card" data-target="dessert">
+      <img src="IMG/cupcakes.png">
+      <span>دسر</span>
+    </div>
+  </div>
+
+  <div class="item-list">
+    <div class="item-card" data-category="hot">
+      <img src="images/latte.jpg">
+      <div class="item-info">
+        <h3>لاته</h3>
+        <p>قهوه با شیر داغ</p>
+      </div>
+      <div class="item-price">75,000</div>
+    </div>
+    <div class="item-card" data-category="cold">
+      <img src="images/lemonade.jpg">
+      <div class="item-info">
+        <h3>لیموناد</h3>
+        <p>لیموی تازه و یخ</p>
+      </div>
+      <div class="item-price">55,000</div>
+    </div>
+    <div class="item-card" data-category="dessert">
+      <img src="images/cheesecake.jpg">
+      <div class="item-info">
+        <h3>چیزکیک</h3>
+        <p>پنیر خامه‌ای، توت‌فرنگی</p>
+      </div>
+      <div class="item-price">95,000</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("main").style.display = "block";
+  }, 6000);
+
+  const categoryCards = document.querySelectorAll('.category-card');
+  const itemCards = document.querySelectorAll('.item-card');
+
+  categoryCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const target = card.getAttribute('data-target');
+      itemCards.forEach(item => {
+        item.style.display = item.dataset.category === target ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

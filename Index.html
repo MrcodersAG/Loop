@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>منوی کافه لوپ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+      body {
+        font-family: 'Vazirmatn', sans-serif;
+      }
+      .active-tab {
+  @apply bg-[#2F4156] text-white border-[#2F4156];
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.menu-card {
+  animation: fadeInUp 0.5s ease forwards;
+}
+.tab-btn {
+  position: relative;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.tab-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 15%;
+  left: 15%;
+  height: 3px;
+  background-color: transparent;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, right 0.3s ease, left 0.3s ease;
+}
+
+.tab-btn:hover::after {
+  background-color: #013046;
+  right: 20%;
+  left: 20%;
+}
+
+.active-tab::after {
+  background-color: #c9ccce;
+  right: 10%;
+  left: 10%;
+}
+
+      
+    </style>
+  </head>
+  <body class="bg-[#F5EFE8] text-[#2F4156]">
+    <header class="text-center py-3 bg-white shadow-sm sticky top-0 z-10 backdrop-blur">
+      <h1 class="text-3xl font-bold">کافه لوپ</h1>
+      <p class="text-sm text-[#567C8D]">منوی دیجیتال چندلایه</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto py-150 px-4">
+      <!-- Tabs -->
+     <!-- Tabs - Sticky Navigation -->
+<div class="sticky top-[80px] z-20 bg-white/30 backdrop-blur-lg border-b border-[#C8D9E6] py-3">
+  <div id="tabs" class="flex flex-wrap justify-center gap-3">
+    <button onclick="showTab('brew', event)" class="tab-btn transition px-5 py-2 rounded-full border border-[#C8D9E6] bg-white text-[#2F4156] hover:bg-[#2F4156]/10">قهوه‌های دمی</button>
+    <button onclick="showTab('espresso', event)" class="tab-btn transition px-5 py-2 rounded-full border border-[#C8D9E6] bg-white text-[#2F4156] hover:bg-[#2F4156]/10">اسپرسو بار</button>
+    <button onclick="showTab('cold', event)" class="tab-btn transition px-5 py-2 rounded-full border border-[#C8D9E6] bg-white text-[#2F4156] hover:bg-[#2F4156]/10">نوشیدنی سرد</button>
+    <button onclick="showTab('snack', event)" class="tab-btn transition px-5 py-2 rounded-full border border-[#C8D9E6] bg-white text-[#2F4156] hover:bg-[#2F4156]/10">صبحانه و اسنک</button>
+    <button onclick="showTab('dessert', event)" class="tab-btn transition px-5 py-2 rounded-full border border-[#C8D9E6] bg-white text-[#2F4156] hover:bg-[#2F4156]/10">کیک و شیرینی</button>
+    
+  </div>
+</div>
+
+      
+
+      <!-- Content Wrapper -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-1 py-6">
+
+        <!-- Brewed Coffee -->
+        <section id="brew">
+          <h2 class="text-xl font-bold mb-4">قهوه‌های دمی</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="menu-card" data-title="V60" data-price="۹۵" data-desc="قهوه دمی با روش V60" data-img="v60"></div>
+            <div class="menu-card" data-title="Chemex" data-price="۱۱۰" data-desc="قهوه با عصاره‌گیری ملایم" data-img="chemex"></div>
+            <div class="menu-card" data-title="French Press" data-price="۸۵" data-desc="عصاره‌گیری قوی با فرنچ پرس" data-img="frenchpress"></div>
+          </div>
+        </section>
+  
+        <section id="espresso">
+          <h2 class="text-xl font-bold mb-4">اسپرسو بار</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="menu-card" data-title="Espresso" data-price="۶۰" data-desc="شات خالص اسپرسو" data-img="espresso"></div>
+            <div class="menu-card" data-title="Latte" data-price="۹۵" data-desc="شیر بخار داده و اسپرسو" data-img="latte"></div>
+            <div class="menu-card" data-title="Flat White" data-price="۹۵" data-desc="نرم و قوی" data-img="flatwhite"></div>
+          </div>
+        </section>
+
+        <!-- Cold Drinks -->
+        <section id="cold">
+          <h2 class="text-xl font-bold mb-4">نوشیدنی سرد</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="menu-card" data-title="Cold Brew" data-price="۹۵" data-desc="قهوه سرد با عصاره‌گیری طولانی" data-img="coldbrew"></div>
+            <div class="menu-card" data-title="Iced Latte" data-price="۹۵" data-desc="لاته خنک با یخ" data-img="icedlatte"></div>
+          </div>
+        </section>
+  
+        <section id="snack">
+          <h2 class="text-xl font-bold mb-4">صبحانه و اسنک</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="menu-card" data-title="Avocado Toast" data-price="۱۱۰" data-desc="تست نان با آووکادو تازه" data-img="avocado toast"></div>
+            <div class="menu-card" data-title="Croissant" data-price="۷۵" data-desc="کروسان کلاسیک" data-img="croissant"></div>
+          </div>
+        </section>
+  
+        <section id="dessert">
+          <h2 class="text-xl font-bold mb-4">کیک و شیرینی</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="menu-card" data-title="Cheesecake" data-price="۹۵" data-desc="چیزکیک خامه‌ای با بیس بیسکوییتی" data-img="cheesecake"></div>
+            <div class="menu-card" data-title="Chocolate Tart" data-price="۹۰" data-desc="تارت شکلات تلخ" data-img="chocolate tart"></div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="text-center text-xs text-[#567C8D] py-8 mt-8 border-t border-[#C8D9E6]">
+      آدرس: رشت، بلوار گیلان — اینستاگرام: @loup.cafe
+    </footer>
+
+    <script>
+      // ساخت کارت‌ها
+      document.querySelectorAll('.menu-card').forEach(el => {
+        const { title, price, desc, img } = el.dataset;
+        el.className = "bg-white rounded-2xl shadow hover:scale-[1.02] transition p-4 flex items-center gap-4";
+        el.innerHTML = `
+          <img src="https://source.unsplash.com/80x80/?${encodeURIComponent(img)}" class="rounded-xl w-20 h-20 object-cover" />
+          <div class="flex-1">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">${title}</span>
+              <span class="text-sm">${price}</span>
+            </div>
+            <p class="text-sm text-[#567C8D]">${desc}</p>
+          </div>
+        `;
+      });
+    
+      // کلیک روی تب = اسکرول نرم به بخش
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tabId = btn.textContent.trim(); // عنوان دکمه
+          const map = {
+            "قهوه‌های دمی": "brew",
+            "اسپرسو بار": "espresso",
+            "نوشیدنی سرد": "cold",
+            "صبحانه و اسنک": "snack",
+            "کیک و شیرینی": "dessert"
+          };
+          const section = document.getElementById(map[tabId]);
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    
+      // تغییر تب فعال حین اسکرول
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            const map = {
+              "brew": "قهوه‌های دمی",
+              "espresso": "اسپرسو بار",
+              "cold": "نوشیدنی سرد",
+              "snack": "صبحانه و اسنک",
+              "dessert": "کیک و شیرینی"
+            };
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+              if (btn.textContent.trim() === map[id]) {
+                btn.classList.add('active-tab');
+              } else {
+                btn.classList.remove('active-tab');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.4 });
+    
+      document.querySelectorAll('.tab-content').forEach(section => observer.observe(section));
+    </script>
+    
+  </body>
+</html>
